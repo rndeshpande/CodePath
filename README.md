@@ -18,10 +18,6 @@ The following **optional** features are implemented:
 
 * [X] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
 * [X] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
-* [ ] Add support for completion due dates for todo items (and display within listview item)
-* [ ] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
-* [ ] Add support for selecting the priority of each todo item (and display in listview item)
-* [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
 The following **additional** features are implemented:
 
@@ -41,11 +37,11 @@ As part of your pre-work submission, please reflect on the app and answer the fo
 
 **Question 1:** "What are your reactions to the Android app development platform so far? Compare and contrast Android's approach to layouts and user interfaces in past platforms you've used."
 
-**Answer:** Android development platform has come a long way since it was launched. The tools and development guidelines seem mature and easy to understand and use. The fragmentation of the platform however  presents some interesting challenges and design decisions during product development. 
+**Answer:** Android development platform has come a long way since it was launched. The tools and development guidelines seem mature and easy to understand and use. The fragmentation of the platform however  presents some interesting challenges and design decisions during product development. I come from a web background that typically involved MVC patterned layouts and interactions. Android's approach to layouts (relative, linear, fixed) feel familiar and allow an easy transition. Also, concepts of fragments does allow reusability which has been typically hard to do in web frameworks (much better now with ReactJS based approaches).
 
 **Question 2:** "Take a moment to reflect on the `ArrayAdapter` used in your pre-work. How would you describe an adapter in this context and what is its function in Android? Why do you think the adapter is important? Explain the purpose of the `convertView` in the `getView` method of the `ArrayAdapter`."
 
-**Answer:** [Enter your answer here in a paragraph or two].
+**Answer:** An adapter essentially allows separation of an object's implementation and it's rendering. It allows developers to decouple data and views in turn providing greater flexibility and speed of development. The "convertView" parameter represents an already instantiated view that is available for use (recycling) again. This allows faster rendering of lists by avoiding instantiating new views for each item that is rendered. Since only the list items that are viewable on a screen need to be kept in memory, already instantiated views could be recyled every time user scrolls up or down.
 
 ## Notes
 
