@@ -1,12 +1,8 @@
 package com.codepath.simpletodo;
 
-import android.util.Log;
-
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
