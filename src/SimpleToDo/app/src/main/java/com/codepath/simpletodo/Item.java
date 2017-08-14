@@ -18,6 +18,14 @@ public class Item extends BaseModel {
     @Column
     String text;
 
+    public  Item() {
+    }
+
+    public  Item(int id, String text) {
+        this.id = id;
+        this.text = text;
+    }
+
     public void setText(String text) {
         this.text = text;
     }

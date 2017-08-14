@@ -23,13 +23,14 @@ public class DataProvider {
     }
 
     public  void updateItem(Item item) {
-        Item updatedItem = SQLite.select().from(Item.class).where(Item_Table.id.eq(item.id)).querySingle();
-        updatedItem.setText((item.getText()));
+        //Item updatedItem = SQLite.select().from(Item.class).where(Item_Table.id.eq(item.id)).querySingle();
+        Item updatedItem = new Item(item.id, item.getText());
         updatedItem.save();
     }
 
     public  void deleteItem(Item item) {
-        Item deletedItem = SQLite.select().from(Item.class).where(Item_Table.id.eq(item.id)).querySingle();
+        //Item deletedItem = SQLite.select().from(Item.class).where(Item_Table.id.eq(item.id)).querySingle();
+        Item deletedItem = new Item(item.getId(), item.getText());
         deletedItem.delete();
     }
 }
