@@ -3,6 +3,7 @@ package com.codepath.simpletodo;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -23,14 +24,12 @@ public class DataProvider {
     }
 
     public  void updateItem(Item item) {
-        //Item updatedItem = SQLite.select().from(Item.class).where(Item_Table.id.eq(item.id)).querySingle();
-        Item updatedItem = new Item(item.id, item.getText());
+        Item updatedItem = new Item(item.id, item.getText(),item.getDueDay(), item.getDueMonth(), item.getDueYear(), item.getPriority());
         updatedItem.save();
     }
 
     public  void deleteItem(Item item) {
-        //Item deletedItem = SQLite.select().from(Item.class).where(Item_Table.id.eq(item.id)).querySingle();
-        Item deletedItem = new Item(item.getId(), item.getText());
+        Item deletedItem = new Item(item.id, item.getText(),item.getDueDay(), item.getDueMonth(), item.getDueYear(), item.getPriority());
         deletedItem.delete();
     }
 }

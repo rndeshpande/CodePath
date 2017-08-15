@@ -3,13 +3,17 @@ package com.codepath.simpletodo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         items.remove(pos);
                         itemsAdapter.notifyDataSetChanged();
                         provider.deleteItem(deletedItem);
+                        Toast.makeText(MainActivity.this, "Item deleted successfully", Toast.LENGTH_SHORT).show();
                         return  true;
                     }
                 }
@@ -67,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("item_id", items.get(pos).id);
                         intent.putExtra("item_pos", pos);
                         intent.putExtra("item_text", items.get(pos).getText());
+                        intent.putExtra("item_priority", items.get(pos).getPriority());
+                        intent.putExtra("item_dueYear", items.get(pos).getDueYear());
+                        intent.putExtra("item_dueMonth", items.get(pos).getDueMonth());
+                        intent.putExtra("item_dueDay", items.get(pos).getDueDay());
                         startActivityForResult(intent, REQUEST_CODE);
                     }
                 }
@@ -81,11 +90,14 @@ public class MainActivity extends AppCompatActivity {
             String text = data.getExtras().getString("item_text");
             int pos = data.getExtras().getInt("item_pos");
             int id = data.getExtras().getInt("item_id");
+            String priority = data.getExtras().getString("item_priority");
+            int dueYear = data.getExtras().getInt("item_dueYear");
+            int dueMonth = data.getExtras().getInt("item_dueMonth");
+            int dueDay = data.getExtras().getInt("item_dueDay");
+
 
             if(pos > -1) {
-                Item item = new Item();
-                item.setId(id);
-                item.setText(text);
+                Item item = new Item(id, text, dueDay, dueMonth, dueYear, priority);
                 provider.updateItem(item);
                 items.set(pos,item);
                 itemsAdapter.notifyDataSetChanged();
