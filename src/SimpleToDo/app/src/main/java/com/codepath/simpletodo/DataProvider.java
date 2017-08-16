@@ -17,10 +17,10 @@ public class DataProvider {
         return items;
     }
 
-    public  void addItem(String text) {
+    public int addItem(String text) {
         Item item = new Item();
         item.setText(text);
-        item.save();
+        return (int) item.insert();
     }
 
     public  void updateItem(Item item) {

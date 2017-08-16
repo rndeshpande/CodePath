@@ -1,6 +1,7 @@
 package com.codepath.simpletodo;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
 
         String itemText = etNewItem.getText().toString();
+        int id = provider.addItem(itemText);
         Item item = new Item();
         item.setText(itemText);
+        item.setId(id);
         itemsAdapter.add(item);
         etNewItem.setText("");
-        provider.addItem(itemText);
     }
 
     private void setupListViewListener() {
@@ -68,15 +70,14 @@ public class MainActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View item, int pos, long id) {
-                        Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
-                        intent.putExtra("item_id", items.get(pos).id);
-                        intent.putExtra("item_pos", pos);
-                        intent.putExtra("item_text", items.get(pos).getText());
-                        intent.putExtra("item_priority", items.get(pos).getPriority());
-                        intent.putExtra("item_dueYear", items.get(pos).getDueYear());
-                        intent.putExtra("item_dueMonth", items.get(pos).getDueMonth());
-                        intent.putExtra("item_dueDay", items.get(pos).getDueDay());
-                        startActivityForResult(intent, REQUEST_CODE);
+                        showEditDialog(pos,
+                                items.get(pos).id,
+                                items.get(pos).getText(),
+                                items.get(pos).getDueDay(),
+                                items.get(pos).getDueMonth(),
+                                items.get(pos).getDueYear(),
+                                items.get(pos).getPriority());
+
                     }
                 }
         );
@@ -86,25 +87,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+
             // Extract name value from result extras
             String text = data.getExtras().getString("item_text");
+            String priority = data.getExtras().getString("item_priority");
             int pos = data.getExtras().getInt("item_pos");
             int id = data.getExtras().getInt("item_id");
-            String priority = data.getExtras().getString("item_priority");
             int dueYear = data.getExtras().getInt("item_dueYear");
             int dueMonth = data.getExtras().getInt("item_dueMonth");
             int dueDay = data.getExtras().getInt("item_dueDay");
 
-
             if(pos > -1) {
-                Item item = new Item(id, text, dueDay, dueMonth, dueYear, priority);
-                provider.updateItem(item);
-                items.set(pos,item);
-                itemsAdapter.notifyDataSetChanged();
+                updateItem(pos, id, text, dueDay, dueMonth, dueYear, priority);
             }
-
-            Toast.makeText(this, "Item saved successfully", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    protected  void updateItem(int position, int id, String text, int dueDay, int dueMonth, int dueYear, String priority) {
+        Item item = new Item(id, text, dueDay, dueMonth, dueYear, priority);
+        provider.updateItem(item);
+        items.set(position,item);
+        itemsAdapter.notifyDataSetChanged();
+    }
+
+    public void buttonClick(int position, int id, String text, int dueDay, int dueMonth, int dueYear, String priority) {
+        updateItem(position, id, text, dueDay, dueMonth, dueYear, priority);
+        Toast.makeText(this, "Item saved successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showEditDialog(int position, int id, String text, int dueDay, int dueMonth, int dueYear, String priority) {
+        FragmentManager fm = getSupportFragmentManager();
+        EditItemDialogFragment editNameDialogFragment = EditItemDialogFragment.newInstance(position, id, text, dueDay, dueMonth, dueYear, priority);
+        editNameDialogFragment.show(fm, "fragment_edit_name");
     }
 
 }

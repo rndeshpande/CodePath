@@ -10,7 +10,7 @@
         android:id="@+id/btnAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Item"
+        android:text="Add Task"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -24,14 +24,14 @@
         android:layout_above="@id/btnAddItem"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true" />
 
     <EditText
         android:id="@+id/etNewItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter a new item"
+        android:hint="Enter a new task"
         android:inputType="textPersonName"
         android:layout_toLeftOf="@id/btnAddItem"
         android:layout_alignParentBottom="true"

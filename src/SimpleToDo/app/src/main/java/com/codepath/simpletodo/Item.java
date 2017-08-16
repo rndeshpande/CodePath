@@ -36,7 +36,7 @@ public class Item extends BaseModel {
     public  Item() {
         Calendar calendar =  Calendar.getInstance();
         this.dueYear = calendar.get(Calendar.YEAR);
-        this.dueMonth = calendar.get(Calendar.MONTH);
+        this.dueMonth = calendar.get(Calendar.MONTH) + 1;
         this.dueDay = calendar.get(Calendar.DAY_OF_MONTH);
     }
 

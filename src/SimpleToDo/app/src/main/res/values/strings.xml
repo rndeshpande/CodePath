@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SimpleToDo</string>
+    <string name="app_name">GotToDo</string>
     <string-array name="priority_array">
         <item>High</item>
         <item>Medium</item>
