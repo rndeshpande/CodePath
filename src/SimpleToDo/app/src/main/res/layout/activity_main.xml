@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.simpletodo.MainActivity">
 
+    <TextView
+        android:id="@+id/tvToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="20dp"
+        android:layout_margin="20dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvPending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvToday"
+        android:textSize="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:textStyle="italic"
+        android:textColor="@color/colorWarning"
+        />
+
     <Button
         android:id="@+id/btnAddItem"
         android:layout_width="wrap_content"
@@ -24,7 +47,9 @@
         android:layout_above="@id/btnAddItem"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@id/tvPending"
+         />
+
 
     <EditText
         android:id="@+id/etNewItem"

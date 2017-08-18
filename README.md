@@ -24,6 +24,11 @@ The following **optional** features are implemented:
 * [X] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
 
+The following **additional** features are implemented:
+
+* [X] Today's date at the top of the screen :- this helps the user to get a perspective of task list matched against the current date
+* [X] Count of pending item :- this helps the user get pending task summary (work load) at a quick glance.
+
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:

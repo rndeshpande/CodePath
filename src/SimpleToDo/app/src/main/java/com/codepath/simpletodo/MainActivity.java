@@ -9,18 +9,25 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<Item> items;
     ItemsAdapter itemsAdapter;
     ListView lvItems;
+    TextView tvPending;
+    TextView tvToday;
     DataProvider provider;
     private final int REQUEST_CODE = 10;
 
@@ -30,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tvToday = (TextView) findViewById(R.id.tvToday);
+        tvPending = (TextView) findViewById(R.id.tvPending);
         lvItems = (ListView) findViewById(R.id.lvItems);
         provider = new DataProvider();
         items = provider.readItems();
@@ -37,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setAdapter(itemsAdapter);
 
         setupListViewListener();
+
+        updatePendingView(items.size());
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy");
+        tvToday.setText(format.format(calendar.getTime()));
     }
 
     public void onAddItem(View v) {
@@ -49,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         item.setId(id);
         itemsAdapter.add(item);
         etNewItem.setText("");
+        updatePendingView(items.size());
     }
 
     private void setupListViewListener() {
@@ -61,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                         itemsAdapter.notifyDataSetChanged();
                         provider.deleteItem(deletedItem);
                         Toast.makeText(MainActivity.this, "Item deleted successfully", Toast.LENGTH_SHORT).show();
+                        updatePendingView(items.size());
                         return  true;
                     }
                 }
@@ -121,4 +137,7 @@ public class MainActivity extends AppCompatActivity {
         editNameDialogFragment.show(fm, "fragment_edit_name");
     }
 
+    private void updatePendingView(int count) {
+        tvPending.setText(Integer.toString(count) +  " tasks lined up");
+    }
 }
