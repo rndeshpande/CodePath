@@ -138,6 +138,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updatePendingView(int count) {
-        tvPending.setText(Integer.toString(count) +  " tasks lined up");
+        String suffix = " tasks lined up";
+        if (count == 1) {
+            suffix = " task lined up";
+        }
+        tvPending.setText(Integer.toString(count) +  suffix);
     }
 }
